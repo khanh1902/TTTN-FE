@@ -1,0 +1,12 @@
+a {
+    text-decoration: none;
+    color: black;
+    &.active {
+        color: dimgrey;
+        text-decoration:underline;
+    }
+}
+
+a:hover {
+    color: dimgrey;
+}

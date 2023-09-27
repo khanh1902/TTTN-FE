@@ -1,0 +1,35 @@
+<table class="table table-hover">
+    <thead class="thead-dark">
+        <tr class="custom-header">
+            <td class="col-1">
+                <input type="checkbox" />
+            </td>
+            <ng-container *ngFor="let column of columns">
+                <th class="col-1">
+                    <div class="input-group custom-input-group">
+                        <input type="text" class="form-control custom-input" placeholder="{{ column.displayName }}...">
+                    </div>
+                </th>
+            </ng-container>
+            <th class="col-1" scope="col">Options</th>
+        </tr>
+    </thead>
+    <tbody>
+        <tr *ngFor="let item of data">
+            <td>
+                <input type="checkbox" [(ngModel)]="item.isSelected" (change)="onCheckboxChange(item)" />
+            </td>
+            <ng-container *ngFor="let column of columns">
+                <td class="col-2">{{ item[column.propertyName] }}</td>
+            </ng-container>
+            <td>
+                <a [routerLink]="['/edit', item.id]">
+                    <fa-icon [icon]="faEdit" class="text-dark p-2"></fa-icon>
+                </a>
+                <a>
+                    <fa-icon [icon]="faTrash" class="text-danger p-2"></fa-icon>
+                </a>
+            </td>
+        </tr>
+    </tbody>
+</table>

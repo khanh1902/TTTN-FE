@@ -1,0 +1,31 @@
+<div>
+    <br />
+    <div class="d-flex justify-content-end">
+      <input class="form-control form-control-dark w-50 rounded-2 border-1 col-2" type="text" placeholder="Search..."
+        aria-label="Search">
+      <a class="btn btn-dark p-1 col-1 mx-1" href="#" role="search">Search</a>
+    </div>
+  
+    <br />
+    <div class="d-flex justify-content-start">
+      <a class="btn btn-dark p-1 col-1 mx-1" href="#" role="button">New</a>
+      <a class="btn btn-dark p-1 col-1 mx-1" href="#" role="button">Delete</a>
+      <a class="btn btn-outline-dark p-1 col-1 mx-1" href="#" role="button">Export</a>
+    </div>
+     
+    <app-tables [columns]="columns" [data]="subjects"></app-tables>
+  
+    <div class="d-flex justify-content-end">
+      <pagination 
+        [boundaryLinks]="true" 
+        [totalItems]="totalCount" 
+        [itemsPerPage]="params.pageSize" 
+        [maxSize]="10"
+        (pageChanged)="onPageChanged($event)" 
+        previousText="&lsaquo;" 
+        nextText="&rsaquo;" 
+        firstText="&laquo;"
+        lastText="&raquo;">
+      </pagination>
+    </div>
+  </div>

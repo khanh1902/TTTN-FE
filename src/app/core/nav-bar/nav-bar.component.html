@@ -1,0 +1,39 @@
+<header class="d-flex flex-row align-items-center justify-content-between p-3 px-4 mb-3
+bg-white border-bottom fixed-top shadow-sm">
+  <span>
+    <a class="fs-3 text-dark text-decoration-none fw-bold" routerLink = "/dashboard">STUDENT MANAGER</a>
+  </span>
+
+  <ul class="nav col-12 col-md-auto mb-2 justify-content-center mb-md-0 fs-6">
+    <li><a class="nav-link px-3"  
+      routerLink = "/dashboard"
+      routerLinkActive="active"
+      [routerLinkActiveOptions]="{exact: true}"
+      >Dashboard</a></li>
+    <li><a class="nav-link px-3"
+      routerLink = "/student"
+      routerLinkActive="active"
+      [routerLinkActiveOptions]="{exact: true}"
+      >Student</a></li>
+    <li><a class="nav-link px-3"
+      routerLink = "/class"
+      routerLinkActive="active"
+      [routerLinkActiveOptions]="{exact: true}"
+      >Class</a></li>
+    <li><a class="nav-link px-3"
+      routerLink = "/subject"
+      routerLinkActive="active"
+      [routerLinkActiveOptions]="{exact: true}"
+      >Subject</a></li>
+    <li><a class="nav-link px-3"
+      routerLink = "/scores"
+      routerLinkActive="active"
+      [routerLinkActiveOptions]="{exact: true}"
+      >Scores</a></li>
+  </ul>
+
+  <div class="col-md-3 text-end">
+    <button type="button" class="btn btn-outline-primary me-2">Login</button>
+    <button type="button" class="btn btn-primary">Sign-up</button>
+  </div>
+</header>
