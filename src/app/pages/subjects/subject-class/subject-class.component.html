@@ -1,0 +1,45 @@
+<mat-dialog-content>
+            <div class="custom-content">
+                <form [formGroup]="subjectForm" class="form-container">
+                    <h2 style="color: black; float: left;">Register {{data.data.subjectName}} for classes</h2>
+                
+                    <mat-form-field class="custom-input" appearance="outline">
+                        <mat-label>Class Name</mat-label>
+                        <mat-chip-grid #classInput aria-label="Enter selection">
+                            <mat-chip-row 
+                            *ngFor="let className of selectedClasses" 
+                            (removed)="remove(className)">
+                              {{className}}
+                              <button matChipRemove [attr.aria-label]="'remove ' + className">
+                                <mat-icon>cancel</mat-icon>
+                              </button>
+                            </mat-chip-row>
+                          </mat-chip-grid>
+                        <input 
+                            #classesInput
+                            type = 'text' 
+                            matInput
+                            placeholder="Class ..." 
+                            formControlName="className" 
+                            [matChipInputFor]="classInput" 
+                            [matAutocomplete]="autoGroup"
+                            (matChipInputTokenEnd)="add($event)"/>
+                        <mat-autocomplete 
+                            #autoGroup="matAutocomplete" 
+                            (optionSelected)="selected($event)"
+                        >
+                        <mat-option *ngFor="let class of filteredClassOptions" [value]="class.className">
+                            {{ class.className }}    
+                        </mat-option>
+                        </mat-autocomplete>
+                        <mat-error *ngIf="subjectForm.get('className')?.hasError('required')">Class Name is required.</mat-error>
+                    </mat-form-field>
+                    <div class="d-flex justify-content-end">
+                        <button class="btn p-1 col-2 mx-1" role="button" style="background-color: whitesmoke;"
+                            matDialogClose>Cancel</button>
+                        <button mat-dialog-close class="btn btn-dark p-1 col-2 mx-1"
+                        [disabled]="!isSave" (click)="onAddSubjectToClass()">Save</button>
+                    </div>
+                </form>
+            </div>
+</mat-dialog-content>

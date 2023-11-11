@@ -1,31 +1,86 @@
+<app-nav-bar></app-nav-bar>
 <div>
-    <br />
-    <div class="d-flex justify-content-end">
-      <input class="form-control form-control-dark w-50 rounded-2 border-1 col-2" type="text" placeholder="Search..."
-        aria-label="Search">
-      <a class="btn btn-dark p-1 col-1 mx-1" href="#" role="search">Search</a>
-    </div>
-  
-    <br />
+  <h1>Subject Manager</h1>
+  <br />
+  <div class="d-flex justify-content-between align-items-center">
     <div class="d-flex justify-content-start">
-      <a class="btn btn-dark p-1 col-1 mx-1" href="#" role="button">New</a>
-      <a class="btn btn-dark p-1 col-1 mx-1" href="#" role="button">Delete</a>
-      <a class="btn btn-outline-dark p-1 col-1 mx-1" href="#" role="button">Export</a>
+      <button class="btn btn-dark p-1 col-8 mx-1" (click)="openAddSubjectModal()">New</button>
+      <button class="btn btn-dark p-1 col-8 mx-1" [disabled]="!isDelete">Delete</button>
+      <!-- <a class="btn btn-outline-dark p-1 col-5 mx-1" href="#" role="button">Export</a> -->
     </div>
-     
-    <app-tables [columns]="columns" [data]="subjects"></app-tables>
   
     <div class="d-flex justify-content-end">
-      <pagination 
-        [boundaryLinks]="true" 
-        [totalItems]="totalCount" 
-        [itemsPerPage]="params.pageSize" 
-        [maxSize]="10"
-        (pageChanged)="onPageChanged($event)" 
-        previousText="&lsaquo;" 
-        nextText="&rsaquo;" 
-        firstText="&laquo;"
-        lastText="&raquo;">
-      </pagination>
+      <input class="form-control form-control-dark w-100 rounded-2 border-1 col-2" type="text" placeholder="Search..."
+        aria-label="Search" #search (keydown.enter)="onSearch()">
     </div>
   </div>
+  <br/>
+<ngx-datatable
+  #dataTable
+  class="material"
+  [rows]="subjects"
+  [columns]="columns"
+  [columnMode]="'force'"
+  [headerHeight]="50"
+  [footerHeight]="50"
+  [rowHeight]="'auto'"
+  [externalPaging]="true"
+  [count]="totalCount"
+  [offset]="params.offset"
+  [limit]="params.limit"
+  (page)="onPageChanged($event)"
+  [selected]="selected"
+  [selectionType]="SelectionType.checkbox"
+  [selectAllRowsOnPage]="false"
+  (select)="onSelect($event)"
+>
+<ngx-datatable-column
+  [width]="30"
+  [sortable]="false"
+  [canAutoResize]="false"
+  [draggable]="false"
+  [resizeable]="false"
+  [headerCheckboxable]="true"
+  [checkboxable]="true"
+
+>
+</ngx-datatable-column>
+
+  <ngx-datatable-column name="Subject Id" [width]="30"></ngx-datatable-column>
+  <ngx-datatable-column name="Subject Name"></ngx-datatable-column>
+  <ngx-datatable-column name="Credit"></ngx-datatable-column>
+  <ngx-datatable-column name="Count Students" [width]="30"></ngx-datatable-column>
+  <ngx-datatable-column name="Action" [width]="30" [sortable]="false">
+    <ng-template let-row="row" ngx-datatable-cell-template >
+      <a title="Register Subject" [matMenuTriggerFor]="menu" class="custom-pointer-cursor">
+        <fa-icon [icon]="faUserPlus" class="text-dark p-2"></fa-icon>
+      </a>
+      <mat-menu #menu="matMenu">
+        <a mat-menu-item title="Add classes" class="custom-pointer-cursor" (click)="openAddClassModal(row)">
+          Classes
+        </a>
+        <a mat-menu-item title="Add Students" class="custom-pointer-cursor" (click)="openAddStudentsModal(row)">
+          Students
+        </a>
+      </mat-menu>
+      <a title="Edit" class="custom-pointer-cursor" (click)="openUpdateSubjectModal(row)">
+        <fa-icon [icon]="faEdit" class="text-dark p-2"></fa-icon>
+      </a>
+      <a title="Delete" class="custom-pointer-cursor" (click)="onDeleteOneSubject(row.subjectId)">
+        <fa-icon [icon]="faTrash" class="text-dark p-2"></fa-icon>
+      </a>
+      <a title="Export Scores" class="custom-pointer-cursor" [matMenuTriggerFor]="menuExport">
+        <fa-icon [icon]="faFileExport" class="text-dark p-2"></fa-icon>
+      </a>
+      <mat-menu #menuExport="matMenu">
+        <a mat-menu-item title="Export excel" class="custom-pointer-cursor" (click)="onExportExcelScoreForSubject(row.subjectId, row.subjectName)">
+          Excel
+        </a>
+        <a mat-menu-item title="Export PDF" class="custom-pointer-cursor" (click)="onExportPDFScoreForSubject(row.subjectId, row.subjectName)">
+          PDF
+        </a>
+      </mat-menu>
+    </ng-template>
+  </ngx-datatable-column>
+</ngx-datatable>
+</div>

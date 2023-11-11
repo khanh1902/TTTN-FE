@@ -1,30 +1,76 @@
+<app-nav-bar></app-nav-bar>
 <div>
-  <br />
-  <div class="d-flex justify-content-end">
-    <input class="form-control form-control-dark w-50 rounded-2 border-1 col-2" type="text" placeholder="Search..."
-      aria-label="Search">
-    <a class="btn btn-dark p-1 col-1 mx-1" href="#" role="search">Search</a>
-  </div>
+  <h1>Class Manager</h1>
+    <br />
+    <div class="d-flex justify-content-between align-items-center">
+      <div class="d-flex justify-content-start">
+        <button class="btn btn-dark p-1 col-8 mx-1" (click)="openAddClassModal()">New</button>
+        <button class="btn btn-dark p-1 col-8 mx-1" [disabled]="!isDelete" (click)="onDeleteClasses()">Delete</button>
+        <!-- <a class="btn btn-outline-dark p-1 col-5 mx-1" href="#" role="button">Export</a> -->
+      </div>
+    
+      <div class="d-flex justify-content-end">
+        <input class="form-control form-control-dark w-100 rounded-2 border-1 col-2" type="text" placeholder="Search..."
+          aria-label="Search" #search (keydown.enter)="onSearch()">
+      </div>
+    </div>
+  <br/>
+<ngx-datatable
+  #dataTable
+  class="material"
+  [rows]="classes"
+  [columns]="columns"
+  [columnMode]="'force'"
+  [headerHeight]="50"
+  [footerHeight]="50"
+  [rowHeight]="'auto'"
+  [externalPaging]="true"
+  [count]="totalCount"
+  [offset]="params.offset"
+  [limit]="params.limit"
+  (page)="onPageChanged($event)"
+  [selectAllRowsOnPage]="false"
+  [selected]="selected"
+  [selectionType]="SelectionType.checkbox"
+  (select)="onSelect($event)"
 
-  <br />
-  <div class="d-flex justify-content-start">
-    <a class="btn btn-dark p-1 col-1 mx-1" href="#" role="button">New</a>
-    <a class="btn btn-dark p-1 col-1 mx-1" href="#" role="button">Delete</a>
-    <a class="btn btn-outline-dark p-1 col-1 mx-1" href="#" role="button">Export</a>
-  </div>
+>
+<ngx-datatable-column
+  [width]="30"
+  [sortable]="false"
+  [canAutoResize]="false"
+  [draggable]="false"
+  [resizeable]="false"
+  [headerCheckboxable]="true"
+  [checkboxable]="true"
+>
+</ngx-datatable-column>
 
-  <app-tables [columns]="columns" [data]="classes"></app-tables>
-  <div class="d-flex justify-content-end">
-    <pagination 
-      [boundaryLinks]="true" 
-      [totalItems]="totalCount" 
-      [itemsPerPage]="params.pageSize" 
-      [maxSize]="10"
-      (pageChanged)="onPageChanged($event)" 
-      previousText="&lsaquo;" 
-      nextText="&rsaquo;" 
-      firstText="&laquo;"
-      lastText="&raquo;">
-    </pagination>
-  </div>
+<ngx-datatable-column name="Class Id" [width]="30"></ngx-datatable-column>
+<ngx-datatable-column name="Class Name"></ngx-datatable-column>
+<ngx-datatable-column name="School Year"></ngx-datatable-column>
+<ngx-datatable-column name="Count Students" [width]="30"></ngx-datatable-column>
+<ngx-datatable-column name="Action" [width]="30" [sortable]="false">
+  <ng-template let-row="row" ngx-datatable-cell-template >
+    <a title="Edit" class="custom-pointer-cursor" (click)="openUpdateClassModal(row)">
+      <fa-icon [icon]="faEdit" class="text-dark p-2"></fa-icon>
+    </a>
+    <a title="Delete" class="custom-pointer-cursor" (click)="deleteOneClass(row.classId)">
+      <fa-icon [icon]="faTrash" class="text-dark p-2"></fa-icon>
+    </a>
+    <a title="Export" class="custom-pointer-cursor" [matMenuTriggerFor]="menu">
+      <fa-icon [icon]="faFileExport" class="text-dark p-2"></fa-icon>
+    </a>
+    <mat-menu #menu="matMenu">
+      <a mat-menu-item title="Export excel" class="custom-pointer-cursor" (click)="onExportExcelListStudent(row.className)">
+        Excel
+      </a>
+      <a mat-menu-item title="Export PDF" class="custom-pointer-cursor" (click)="onExportPDFListStudent(row.className)">
+        PDF
+      </a>
+    </mat-menu>
+  </ng-template>
+</ngx-datatable-column>
+</ngx-datatable>
 </div>
+

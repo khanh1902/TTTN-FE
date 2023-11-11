@@ -8,5 +8,10 @@
 /* Importing Datepicker SCSS file. */
 @import "node_modules/ngx-bootstrap/datepicker/bs-datepicker";
 
+@import "node_modules/@swimlane/ngx-datatable/themes/material.scss";
+@import "node_modules/@swimlane/ngx-datatable/assets/icons.css";
+@import "node_modules/@swimlane/ngx-datatable/index.css";
+
+
 html, body { height: 100%; }
 body { margin: 0; font-family: Roboto, "Helvetica Neue", sans-serif; }

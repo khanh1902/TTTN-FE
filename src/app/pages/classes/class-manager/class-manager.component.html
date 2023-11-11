@@ -1,0 +1,29 @@
+<mat-dialog-content>
+  <header style="color: black; float: left;">
+    <h1>{{ isEditMode ? 'Update Class' : 'New Class' }}</h1>
+  </header>
+  <form [formGroup]="classForm" class="form-container">
+    <mat-form-field class="custom-input" *ngIf="isEditMode" appearance="outline">
+      <mat-label>Class Id</mat-label>
+      <input matInput formControlName="classId" [readonly]="data">
+    </mat-form-field>
+    <mat-form-field class="custom-input" appearance="outline">
+      <mat-label>Class Name</mat-label>
+      <input matInput formControlName="className" placeholder="Ex. CN20D">
+      <mat-error *ngIf="classForm.get('className')?.hasError('required')">Class name is required.</mat-error>
+    </mat-form-field>
+    <mat-form-field class="custom-input" appearance="outline">
+      <mat-label>School Year</mat-label>
+      <input matInput formControlName="schoolYear" placeholder="Ex. 2020-2024">
+      <mat-error *ngIf="classForm.get('schoolYear')?.hasError('required')">Class Name is required.</mat-error>
+    </mat-form-field>
+  </form>
+  <div class="d-flex justify-content-end">
+    <button class="btn p-1 col-2 mx-1" role="button" style="background-color: whitesmoke;"
+      matDialogClose>Cancel</button>
+      <button mat-dialog-close class="btn btn-dark p-1 col-2 mx-1" (click)="addOrUpdateClass()"
+      [disabled]="!classForm.valid" *ngIf="!isEditMode">Save</button>
+  <button mat-dialog-close class="btn btn-dark p-1 col-2 mx-1" (click)="addOrUpdateClass()"
+      [disabled]="!classForm.valid" *ngIf="isEditMode">Update</button>
+  </div>
+</mat-dialog-content>

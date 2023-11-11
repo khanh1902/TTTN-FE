@@ -1,18 +1,21 @@
 import { NgModule } from '@angular/core';
 import { RouterModule, Routes } from '@angular/router';
-import { DashboardComponent } from './pages/dashboard/dashboard.component';
 import { ClassesComponent } from './pages/classes/classes.component';
 import { StudentsComponent } from './pages/students/students.component';
 import { SubjectsComponent } from './pages/subjects/subjects.component';
 import { ScoresComponent } from './pages/scores/scores.component';
+import { AuthComponent } from './pages/auth/auth.component';
+import { AuthGuard } from './_helpers/auth.guard';
+import { DashboardComponent } from './pages/dashboard/dashboard.component';
 
 const routes: Routes = [
-  {path: 'dashboard', component: DashboardComponent},
-  {path: 'class', component: ClassesComponent},
-  {path: 'student', component: StudentsComponent},
-  {path: 'subject', component: SubjectsComponent},
-  {path: 'scores', component: ScoresComponent},
-  {path: '**', redirectTo: 'dashboard', pathMatch: 'full'},
+  {path: 'class', component: ClassesComponent, canActivate:[AuthGuard], data: {requiredRole: 'ROLE_ADMIN'}},
+  {path: 'dashboard', component: DashboardComponent, canActivate:[AuthGuard], data: {requiredRole: 'ROLE_ADMIN'}},
+  {path: 'student', component: StudentsComponent, canActivate:[AuthGuard], data: {requiredRole: 'ROLE_ADMIN'}},
+  {path: 'subject', component: SubjectsComponent, canActivate:[AuthGuard], data: {requiredRole: 'ROLE_ADMIN'}},
+  {path: 'scores', component: ScoresComponent, canActivate:[AuthGuard], data: {requiredRole: 'ROLE_ADMIN'}},
+  {path: 'login', component: AuthComponent},
+  {path: '**', redirectTo: 'login', pathMatch: 'full'},
 ];
 
 @NgModule({

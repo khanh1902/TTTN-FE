@@ -5,7 +5,8 @@ import { PaginationModule } from 'ngx-bootstrap/pagination';
 
 
 @NgModule({
-  declarations: [],
+  declarations: [
+  ],
   imports: [
     CommonModule,
     PaginationModule.forRoot(),

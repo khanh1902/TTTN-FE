@@ -1,0 +1,51 @@
+<mat-dialog-content>
+    <header style="color: black; float: left;">
+        <h1>{{ isEditMode ? 'Update Student' : 'New Student' }}</h1>
+    </header>
+    <form [formGroup]="studentForm" class="form-container">
+        <mat-form-field class="custom-input" *ngIf="isEditMode" appearance="outline">
+            <mat-label>Student Id</mat-label>
+            <input matInput formControlName="studentId" [readonly]="data">
+        </mat-form-field>
+
+        <mat-form-field class="custom-input" appearance="outline">
+            <mat-label>Full Name</mat-label>
+            <input matInput formControlName="studentName" placeholder="Ex. Van Khanh">
+            <mat-error *ngIf="studentForm.get('studentName')?.hasError('required')">Student name is
+                required.</mat-error>
+        </mat-form-field>
+
+        <mat-form-field class="custom-input" appearance="outline">
+            <mat-label>Address</mat-label>
+            <input matInput formControlName="studentAddress" placeholder="Ex. Bac Lieu">
+            <mat-error *ngIf="studentForm.get('studentAddress')?.hasError('required')">Student address is
+                required.</mat-error>
+        </mat-form-field>
+
+        <mat-form-field class="custom-input" appearance="outline">
+            <mat-label>Class</mat-label>
+
+            <input 
+                type = 'text' 
+                matInput 
+                formControlName="className" 
+                placeholder="Class" 
+                [matAutocomplete]="autoGroup"
+            >
+            <mat-autocomplete #autoGroup="matAutocomplete" [autoActiveFirstOption]="true" (optionSelected)="onClassOptionSelected($event)">
+                <mat-option *ngFor="let class of filteredClassOptions" [value]="class.className">{{ class.className }}</mat-option>
+            </mat-autocomplete>
+
+            <mat-error *ngIf="studentForm.get('className')?.hasError('required')">Class Name is required.</mat-error>
+        </mat-form-field>
+        
+    </form>
+    <div class="d-flex justify-content-end">
+        <button class="btn p-1 col-2 mx-1" role="button" style="background-color: whitesmoke;"
+            matDialogClose>Cancel</button>
+        <button mat-dialog-close class="btn btn-dark p-1 col-2 mx-1" (click)="addOrUpdateStudent()"
+            [disabled]="!studentForm.valid" *ngIf="!isEditMode">Save</button>
+        <button mat-dialog-close class="btn btn-dark p-1 col-2 mx-1" (click)="addOrUpdateStudent()"
+            [disabled]="!studentForm.valid" *ngIf="isEditMode">Update</button>
+    </div>
+</mat-dialog-content>

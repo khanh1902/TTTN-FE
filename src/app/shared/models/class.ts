@@ -1,8 +1,13 @@
-import { SelectableData } from "src/app/core/tables/tables.component";
-
-export interface IClass extends SelectableData {
+export class Class {
     classId: number;
     className: string;
     schoolYear: string;
-    isSelected: boolean;
+    countStudents: number;
+
+    constructor(classId: number, className: string, schoolYear: string, countStudents: number) {
+        this.classId = classId;
+        this.className = className;
+        this.schoolYear = schoolYear;
+        this.countStudents = countStudents;
+    }
 }

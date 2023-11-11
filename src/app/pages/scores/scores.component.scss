@@ -1,0 +1,34 @@
+::ng-deep .ngx-datatable.material {
+  box-shadow: none;
+}
+
+.ngx-datatable:not(.cell-selection) ::ng-deep .datatable-header {
+
+  .datatable-header-cell {
+
+    text-align: left;
+    font-weight: bolder;
+    font-size: 14px;
+    font-weight: 500;
+    color: black;
+  }
+}
+
+.custom-pointer-cursor {
+  cursor: pointer;
+}
+
+.dialog-content-auto-height {
+  max-height: none;
+  height: auto;
+  overflow-y: auto;
+}
+
+.btn-with-padding {
+  padding-left: 10px;
+  /* Adjust the value as needed */
+  padding-right: 10px;
+  /* Adjust the value as needed */
+  padding-top: 4px;
+  padding-bottom: 4px;
+}

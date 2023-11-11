@@ -1,9 +1,18 @@
-::ng-deep .pagination .page-item.active .page-link {
-    background-color: black;
-    color: white;
-    border-color: black;
+::ng-deep .ngx-datatable.material {
+  box-shadow: none;
 }
 
-::ng-deep .pagination .page-item:not(.active) .page-link {
+.ngx-datatable:not(.cell-selection) ::ng-deep .datatable-header {
+
+  .datatable-header-cell {
+
+    text-align: left;
+    font-weight: bolder;
+    font-size: 14px;
+    font-weight: 500;
     color: black;
   }
+}
+.custom-pointer-cursor {
+  cursor: pointer;
+}

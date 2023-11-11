@@ -1,0 +1,27 @@
+<mat-dialog-content>
+    <header style="color: black; float: left;">
+        <h1>Update Scores</h1>
+    </header>
+    <form [formGroup]="scoresForm" class="form-container">
+        <mat-form-field class="custom-input" appearance="outline">
+            <mat-label>Student Id</mat-label>
+            <input matInput formControlName="studentId" [readonly]="data">
+        </mat-form-field>
+        <mat-form-field class="custom-input" appearance="outline">
+            <mat-label>Subject Name</mat-label>
+            <input matInput formControlName="subjectName" [readonly]="data">
+        </mat-form-field>
+        <mat-form-field class="custom-input" appearance="outline">
+            <mat-label>Scores</mat-label>
+            <input matInput formControlName="scores" placeholder="Ex. 2020-2024">
+            <mat-error *ngIf="scoresForm.get('scores')?.hasError('required')">Scores is required.</mat-error>
+            <mat-error *ngIf="scoresForm.get('scores')?.hasError('invalidScore')">Scores must be less than or equal to 10.</mat-error>
+        </mat-form-field>
+    </form>
+    <div class="d-flex justify-content-end">
+        <button class="btn p-1 col-2 mx-1" role="button" style="background-color: whitesmoke;"
+            matDialogClose>Cancel</button>
+        <button mat-dialog-close class="btn btn-dark p-1 col-2 mx-1" (click)="updateScores()"
+            [disabled]="!scoresForm.valid">Update</button>
+    </div>
+</mat-dialog-content>

@@ -1,1 +1,77 @@
-<p>scores works!</p>
+<app-nav-bar></app-nav-bar>
+<div>
+    <h1>Student Manager</h1>
+    <br />
+    <div class="d-flex justify-content-between align-items-center">
+      <div class="d-flex justify-content-start">
+        <button type="button" class="btn btn-dark col-12 mx-1 btn-with-padding" [disabled]="!isDelete" (click)="onDeleteScores()">Delete</button>
+        <!-- <a class="btn btn-outline-dark p-1 col-6 mx-1" href="#" role="button">Export</a> -->
+      </div>
+    
+      <div class="d-flex justify-content-end">
+        <input class="form-control form-control-dark w-100 rounded-2 border-1 col-2" type="text" placeholder="Search..."
+          aria-label="Search" #search (keydown.enter)="onSearch()">
+      </div>
+    </div>
+    <br/>
+  <ngx-datatable
+    #dataTable
+    class="material"
+    [rows]="scores"
+    [columns]="columns"
+    [columnMode]="'force'"
+    [headerHeight]="50"
+    [footerHeight]="50"
+    [rowHeight]="'auto'"
+    [externalPaging]="true"
+    [count]="totalCount"
+    [offset]="params.offset"
+    [limit]="params.limit"
+    (page)="onPageChanged($event)"
+    [selected]="selected"
+    [selectionType]="SelectionType.checkbox"
+    [selectAllRowsOnPage]="false"
+    (select)="onSelect($event)"
+  >
+  <ngx-datatable-column
+    [width]="30"
+    [sortable]="false"
+    [canAutoResize]="false"
+    [draggable]="false"
+    [resizeable]="false"
+    [headerCheckboxable]="true"
+    [checkboxable]="true"
+
+  >
+  </ngx-datatable-column>
+
+  <ngx-datatable-column name="Student Id" [width]="60"></ngx-datatable-column>
+  <ngx-datatable-column name="Student Name" [width]="90"></ngx-datatable-column>
+  <ngx-datatable-column name="Subject Id" [width]="20"></ngx-datatable-column>
+  <ngx-datatable-column name="Subject Name" [width]="60"></ngx-datatable-column>
+  <ngx-datatable-column name="Class Name" [width]="60"></ngx-datatable-column>
+  <ngx-datatable-column name="Scores" [width]="30"></ngx-datatable-column>
+  <ngx-datatable-column name="Qualified" [width]="30"  [sortable]="false">
+    <ng-template let-row="row" ngx-datatable-cell-template>
+      <a title="Passed" class="custom-pointer-cursor" *ngIf="row.scores != null && row.scores >= 4">
+        <fa-icon [icon]="faCheck" class="text-success p-2"></fa-icon>
+      </a>
+      <a title="Failed" class="custom-pointer-cursor" *ngIf="row.scores != null && row.scores < 4">
+        <fa-icon [icon]="faClose" class="text-danger p-2"></fa-icon>
+      </a>
+    </ng-template>
+  </ngx-datatable-column>
+  <ngx-datatable-column name="Action" [width]="30" [sortable]="false">
+    <ng-template let-row="row" ngx-datatable-cell-template >
+      <a title="Edit" class="custom-pointer-cursor" (click)="openUpdateScoresModal(row)">
+        <fa-icon [icon]="faEdit" class="text-dark p-2"></fa-icon>
+      </a>
+      <a title="Delete" class="custom-pointer-cursor" (click)="onDeleteOneScores(row.studentId, row.subjectId)">
+        <fa-icon [icon]="faTrash" class="text-dark p-2"></fa-icon>
+      </a>
+    </ng-template>
+  </ngx-datatable-column>
+</ngx-datatable>
+</div>
+
+  

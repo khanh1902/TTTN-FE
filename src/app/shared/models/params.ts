@@ -1,5 +1,6 @@
 export class Params {
-    pageIndex = 1;
-    pageSize = 2;
-    search = ''
+    offset = 0;
+    limit = 8;
+    search = '';
+    ids = '[]';
 }

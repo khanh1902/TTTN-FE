@@ -31,9 +31,12 @@ bg-white border-bottom fixed-top shadow-sm">
       [routerLinkActiveOptions]="{exact: true}"
       >Scores</a></li>
   </ul>
-
   <div class="col-md-3 text-end">
-    <button type="button" class="btn btn-outline-primary me-2">Login</button>
-    <button type="button" class="btn btn-primary">Sign-up</button>
+    <ng-container *ngIf="fullName !== null">
+      <div class="d-flex align-items-center justify-content-end">
+        <p class="m-0 me-3 fs-6">Welcome {{fullName}}</p>
+        <button type="button" class="btn btn-dark" (click)="onLogout()">Logout</button>
+      </div>
+    </ng-container>
   </div>
 </header>

@@ -1,1 +1,129 @@
-<p>dashboard works!</p>
+<app-nav-bar></app-nav-bar>
+<mat-grid-list cols="1" rowHeight="300">
+  <mat-grid-tile>
+    <div class="row">
+      <div class="col-3 mb-3">
+        <!-- Card -->
+        <a class="card card-hover-shadow h-95 bg-light text-decoration-none" routerLink="/student"
+          routerLinkActive="active" [routerLinkActiveOptions]="{exact: true}">
+          <div class="card-body">
+            <div class="row align-items-center gx-2">
+              <div class="col-12 mx-4 p-1">
+                <h3 class="card-title">MANAGE STUDENT</h3>
+              </div>
+              <!-- End Col -->
+            </div>
+            <!-- End Row -->
+
+            <div class="row align-items-center gx-2">
+              <div class="col-12 mx-4 p-1 text-success">
+                Total: {{totalStudents}} students
+              </div>
+              <!-- End Col -->
+
+            </div>
+          </div>
+        </a>
+        <!-- End Card -->
+      </div>
+
+      <div class="col-3 mb-3 ">
+        <!-- Card -->
+        <a class="card card-hover-shadow h-95 bg-light text-decoration-none" routerLink="/class"
+          routerLinkActive="active" [routerLinkActiveOptions]="{exact: true}">
+          <div class="card-body">
+
+            <div class="row align-items-center gx-2">
+              <div class="col-12 mx-4 p-1">
+                <h3 class="card-title">MANAGE CLASS</h3>
+              </div>
+              <!-- End Col -->
+
+            </div>
+            <!-- End Row -->
+
+            <div class="row align-items-center gx-2">
+              <div class="col-12 mx-4 p-1 text-success">
+                Total: {{totalClasses}} classes
+              </div>
+
+            </div>
+          </div>
+        </a>
+        <!-- End Card -->
+      </div>
+
+      <div class="col-3 mb-3 ">
+        <!-- Card -->
+        <a class="card card-hover-shadow h-95 bg-secondary text-decoration-none text-white" routerLink="/subject"
+          routerLinkActive="active" [routerLinkActiveOptions]="{exact: true}">
+          <div class="card-body">
+
+            <div class="row align-items-center gx-2 ">
+              <div class="col-12 mx-4 p-1">
+                <h3 class="card-title">MANAGE SUBJECT</h3>
+              </div>
+            </div>
+
+            <div class="row align-items-center gx-2">
+              <div class="col-12 mx-4 p-1 text-white">
+                Total: {{totalSubjects}} subjects
+              </div>
+            </div>
+          </div>
+        </a>
+      </div>
+
+      <div class="col-3 mb-3 ">
+        <!-- Card -->
+        <a class="card card-hover-shadow h-95 bg-secondary text-decoration-none text-white" routerLink="/scores"
+          routerLinkActive="active" [routerLinkActiveOptions]="{exact: true}">
+          <div class="card-body">
+
+            <div class="row align-items-center gx-2">
+              <div class="col-12 mx-4 p-1">
+                <h3 class="card-title">MANAGE CLASS</h3>
+              </div>
+              <!-- End Col -->
+
+            </div>
+            <!-- End Row -->
+
+            <div class="row align-items-center gx-2">
+              <div class="col-12 mx-4 p-1 text-white">
+                Total: {{totalScores}} scores
+              </div>
+              <!-- End Col -->
+
+            </div>
+          </div>
+        </a>
+        <!-- End Card -->
+      </div>
+    </div>
+  </mat-grid-tile>
+  <mat-grid-tile>
+    <div class="row">
+      <div class="col-6" [style.width.px]="chartWidth" [style.height.px]="chartHeight">
+        <h2>Rank</h2>
+
+        <ngx-datatable
+          #dataTable
+          class="material"
+          [rows]="rankStudents"
+          [columns]="columns"
+          [headerHeight]="50"
+          rowHeight="auto"
+        >
+        <ngx-datatable-column name="Top" prop="top" [width]="70"></ngx-datatable-column>
+        <ngx-datatable-column name="Student Id" prop="studentId"></ngx-datatable-column>
+        <ngx-datatable-column name="Student Name" prop="studentName"></ngx-datatable-column>
+        <ngx-datatable-column name="Scores" prop="scores"></ngx-datatable-column>
+      </ngx-datatable>
+      </div>
+      <div class="col-6" *ngIf="dataPoint.length > 0" [style.width.px]="chartWidth" [style.height.px]="chartHeight">
+        <canvasjs-chart [options]="chartOptions"></canvasjs-chart>
+      </div>
+    </div>
+  </mat-grid-tile>
+</mat-grid-list>
